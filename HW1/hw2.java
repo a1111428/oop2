@@ -5,8 +5,8 @@ import java.awt.event.ActionListener;
 import java.util.Random;
 
 public class hw2 extends JFrame {
-    private int count = 0;       // 擲骰次數 N
-    private int totalSum = 0;    // 點數總和 M
+    private int count = 0;       // 初始化擲骰次數為 0
+    private int totalSum = 0;    // 初始化總和為 0
     private JLabel statusLabel;  // 上方統計訊息
     private JLabel diceLabel;    // 中央點數顯示
     private JButton rollButton;  // 下方擲骰子按鈕
@@ -22,14 +22,15 @@ public class hw2 extends JFrame {
 
         random = new Random();
 
-        // 2. 視窗上方統計訊息 JLabel
+        // 2. 視窗上方統計訊息 JLabel (初始為 0 次)
         statusLabel = new JLabel("已擲 0 次，總和 0，平均 0.00", SwingConstants.CENTER);
         statusLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
         add(statusLabel, BorderLayout.NORTH);
 
-        // 3. 中央點數 JLabel (字體 60pt)
-        diceLabel = new JLabel("-", SwingConstants.CENTER);
+        // 3. 中央點數 JLabel (預設顯示 1，顏色為紅色)
+        diceLabel = new JLabel("1", SwingConstants.CENTER);
         diceLabel.setFont(new Font("SansSerif", Font.BOLD, 60));
+        diceLabel.setForeground(Color.RED); // 預設顯示 1，顏色為紅色
         add(diceLabel, BorderLayout.CENTER);
 
         // 4. 下方「擲骰子」按鈕
@@ -41,9 +42,10 @@ public class hw2 extends JFrame {
         rollButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // 隨機產生 1-6 的點數
+                // 按下按鈕後，產生 1-6 的隨機點數
                 int diceValue = random.nextInt(6) + 1;
                 
+                // 按下按鈕才開始計數與累加
                 count++;
                 totalSum += diceValue;
                 double average = (double) totalSum / count;
